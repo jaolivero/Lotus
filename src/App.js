@@ -5,18 +5,20 @@ import Login from "./components/Login";
 import Home from "./components/Home";
 import Posts from "./mock/Posts";
 import Timeline from "./components/Timeline";
-import addPost from "./components/addPost";
+import Submission from "./components/addPost";
 import "./App.css";
 
 class App extends Component {
   state = {
     Posts: [...Posts],
   };
+
   addPost = (newPost) => {
     this.setState({
       Posts: [...this.state.Posts, newPost],
     });
   };
+
   render() {
     return (
       <BrowserRouter>
@@ -27,7 +29,9 @@ class App extends Component {
             <Route path="/login" component={Login} />
             <Route exact path="/timeline">
               <Timeline Posts={this.state.Posts} />
-              <addPost />
+            </Route>
+            <Route path="/submit">
+              <Submission addPost={this.addPost} />
             </Route>
           </Switch>
         </div>

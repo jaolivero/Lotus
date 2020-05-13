@@ -3,6 +3,7 @@ import React from "react";
 const Story = ({ post }) => {
   return (
     <div className="tlPost">
+      <h2>{post.game}</h2>
       <p>{post.summary}</p>
       <video src="videos/gamer123.mp4" autoplay controls></video>
       <p>

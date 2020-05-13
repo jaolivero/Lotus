@@ -1,5 +1,6 @@
 import React from "react";
 import Story from "./Story";
+import { Link } from "react-router-dom";
 
 const Timeline = (props) => {
   const renderPosts = () => {
@@ -18,9 +19,12 @@ const Timeline = (props) => {
           <li>Most Popular</li>
           <li>Search</li>
         </ul>
-        <div class="">
-          <div className="postList">{renderPosts()}</div>
+        <div>
+          <h2>
+            <Link to="/submit">Add Post</Link>
+          </h2>
         </div>
+        <div className="postList">{renderPosts()}</div>
       </div>
     </div>
   );

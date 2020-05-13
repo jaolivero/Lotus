@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   return (
     <nav className="navComponent">
-      <div class="menuBars" onclick="mobileNav()">
-        <div class="barOne"></div>
-        <div class="barTwo"></div>
-        <div class="barThree"></div>
+      <div className="menuBars">
+        <div className="barOne"></div>
+        <div className="barTwo"></div>
+        <div className="barThree"></div>
       </div>
       <div className="tabletMenu">
         <ul>

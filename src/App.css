@@ -4,6 +4,23 @@
   box-sizing: border-box;
 }
 
+.homePage {
+  color: white;
+  background-image: url(./img/gaming.jpeg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+.intro {
+  font-size: 3rem;
+  position: absolute;
+  padding: 10px;
+  background-color: gray;
+  top: 50%;
+  left: 50%;
+}
 .menuBars {
   cursor: pointer;
 }
@@ -37,6 +54,9 @@ nav {
   align-items: center;
   justify-content: center;
   background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 50%;
 }
 
@@ -107,11 +127,7 @@ video {
   padding: 1em;
 }
 .signIn {
-  background-color: yellow;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: auto;
+  background-color: lightblue;
 }
 
 .signIn input {
@@ -125,33 +141,25 @@ fieldset {
   margin-top: 10px;
 }
 
-button {
-  color: white;
-  background-color: #2f4454;
-  border-radius: 10px;
-  cursor: pointer;
-  margin-top: 0.5em;
-  float: right;
-}
-
 @media only screen and (min-width: 368px) {
   .menuBars {
     display: none;
   }
   .tabletMenu ul {
     display: flex;
-    justify-content: space-evenly;
-    align-self: auto;
+    justify-content: space-around;
+    margin-left: 0.5em;
   }
   .tabletMenu li {
     list-style: none;
-    margin-left: 2em;
     text-decoration: none;
+    margin-left: 10px;
+    padding: 10px;
   }
 
-  .tabletMenu li:hover {
-    border-bottom: 2px solid white;
-    box-sizing: border-box;
+  .tabletMenu a:hover {
+    border: 2px solid white;
+    padding: 5px;
   }
   .tabletMenu a {
     text-decoration: none;

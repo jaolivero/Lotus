@@ -1,41 +1,76 @@
 import React, { Component } from "react";
 
-class addPost extends Component {
+class Submission extends Component {
   state = {
-    content: "",
+    title: "",
+    summary: "",
+    game: "",
+    video: "",
+    likes: 0,
+    comments: [],
   };
 
   handleChange = (e) => {
-    this.setstate({
-      content: e.target.value,
+    this.setState({
+      ...this.state,
+      [e.target.id]: [e.target.value],
     });
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.addPost(this.state);
-    this.setstate({
-      content: "",
+    const newResource = { ...this.state };
+    this.props.addPost(newResource);
+    this.setState({
+      title: "",
+      summary: "",
+      game: "",
+      video: "",
+      likes: 0,
+      comments: [],
     });
   };
+
   render() {
     return (
       <div className="addPost">
-        <form onSumbit={this.handSubmit}>
+        <form onSubmit={this.handleSubmit}>
           <fieldset>
             <label>
-              <input type="text" placeholder="Title" />
+              <input
+                id="title"
+                type="text"
+                placeholder="Title"
+                value={this.state.title}
+                onChange={this.handleChange}
+                required
+              />
             </label>
             <label>
               <input
-                type="Summary"
-                placeholder="Video"
+                id="summary"
+                type="text"
+                placeholder="summary"
+                value={this.state.summary}
                 onChange={this.handleChange}
-                value={this.state.content}
+                required
               />
-              <input type="file" />
+              <input
+                id="game"
+                type="text"
+                placeholder="Game"
+                value={this.state.game}
+                onChange={this.handleChange}
+                required
+              />
+              <input
+                id="video"
+                type="file"
+                value={this.state.video}
+                onChange={this.handleChange}
+              />
             </label>
-            <button>Submit</button>
+            <button type="sumbit">Submit</button>
           </fieldset>
         </form>
       </div>
@@ -43,4 +78,4 @@ class addPost extends Component {
   }
 }
 
-export default addPost;
+export default Submission;

@@ -3,6 +3,8 @@ import React from "react";
 const Login = () => {
   return (
     <div className="signIn">
+      <i class="far fa-flower-tulip"></i>
+      <h2>Login into your account</h2>
       <label>Username</label>
       <input type="text" placeholder="Username" />
       <label> Password</label>
