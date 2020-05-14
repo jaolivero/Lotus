@@ -63,7 +63,7 @@ nav {
 .timeLine {
   height: 100%;
   width: 50%;
-  background-color: #eae7dc;
+  background-color: #dddddd;
   margin-top: 10px;
 }
 
@@ -88,6 +88,24 @@ nav {
   width: 100%;
   cursor: pointer;
   background-color: #8e8d8a;
+}
+
+.addPost {
+  text-align: end;
+  margin-right: 10px;
+  text-decoration: none;
+  color: red;
+  margin-top: 20px;
+}
+
+.addPost a {
+  text-decoration: none;
+  color: red;
+}
+
+.addPost:hover {
+  color: white;
+  text-decoration: underline;
 }
 
 .tlPost {

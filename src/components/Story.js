@@ -12,12 +12,12 @@ const Story = ({ post }) => {
       <p>
         {post.comments.length}
         <span class="comments" onclick="showComments">
-          comments
+          Comments
         </span>
       </p>
       <ul>
         <li>Like</li>
-        <li onclick="addComment">Comment</li>
+        <li onClick="addComment">Comment</li>
         <li>Share</li>
       </ul>
     </div>

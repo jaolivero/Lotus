@@ -13,13 +13,16 @@ const Timeline = (props) => {
 
   return (
     <div className="layout">
+      <div className="userProfile">
+        <p>hello world</p>
+      </div>
       <div className="timeLine">
         <ul>
           <li>Trending</li>
           <li>Most Popular</li>
           <li>Search</li>
         </ul>
-        <div>
+        <div className="addPost">
           <h2>
             <Link to="/submit">Add Post</Link>
           </h2>
