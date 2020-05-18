@@ -14,7 +14,9 @@ const Timeline = (props) => {
   return (
     <div className="layout">
       <div className="userProfile">
+        <div className="profilePic"></div>
         <p>hello world</p>
+        <p>West Warwick</p>
       </div>
       <div className="timeLine">
         <ul>

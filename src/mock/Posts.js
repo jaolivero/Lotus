@@ -19,13 +19,13 @@ const Posts = [
   },
   {
     video: "",
-    game: "Fortnite",
+    game: "Madden 20",
     likes: 85,
     summary: "Three game win Streak!",
     comments: [
       {
         user: "bella_xo",
-        text: "Can't believe you guys pulled it off!",
+        text: "Can't believe you pulled it off!",
         time: "April 30th, 2020",
       },
     ],
