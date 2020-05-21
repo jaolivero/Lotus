@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Timeline = (props) => {
   const renderPosts = () => {
     const display = props.Posts.map((post) => {
-      return <Story post={post} key={post.title} />;
+      return <Story post={post} key={post.id} onSelected={props.onSelected} />;
     });
 
     return display;

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 class Submission extends Component {
   state = {
+    id: 0,
     title: "",
     summary: "",
     game: "",

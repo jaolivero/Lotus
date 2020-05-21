@@ -1,5 +1,6 @@
 const Posts = [
   {
+    id: 1,
     video: "",
     game: "Fortnite",
     likes: 125,
@@ -18,6 +19,7 @@ const Posts = [
     ],
   },
   {
+    id: 2,
     video: "",
     game: "Madden 20",
     likes: 85,
@@ -31,6 +33,7 @@ const Posts = [
     ],
   },
   {
+    id: 3,
     video: "",
     game: "GTA IV",
     likes: 125,
