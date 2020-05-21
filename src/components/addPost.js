@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Button from "./common/Button";
 
 class Submission extends Component {
   state = {
@@ -71,7 +72,7 @@ class Submission extends Component {
                 onChange={this.handleChange}
               />
             </label>
-            <button type="sumbit">Submit</button>
+            <Button type="Submit"> Submit</Button>
           </fieldset>
         </form>
       </div>

@@ -41,7 +41,7 @@ class App extends Component {
             <Route exact path="/timeline">
               <Timeline Posts={this.state.Posts} onSelect={this.handleSelect} />
             </Route>
-            <Route path="/addPost">
+            <Route path="/submit">
               <Submission addPost={this.addPost} />
             </Route>
             <Route path="/viewPost/:id">

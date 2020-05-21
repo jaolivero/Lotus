@@ -22,8 +22,12 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
-      <h1 className="logo">Brand</h1>
-      <p>small logo</p>
+      <div>
+        <h1 className="logo">Brand</h1>
+      </div>
+      <div>
+        <p>small logo</p>
+      </div>
     </nav>
   );
 };

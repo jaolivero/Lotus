@@ -15,11 +15,16 @@ class Story extends Component {
   render() {
     const { post } = this.props;
     return (
-      <div className="tlPost" onClick={this.handleClick}>
+      <div className="tlPost">
         {this.state.clicked ? <Redirect to={`/viewPost/${post.id}`} /> : null}
         <h2>{post.game}</h2>
         <p>{post.summary}</p>
-        <video src="videos/gamer123.mp4" autoPlay controls></video>
+        <video
+          src={post.video}
+          onClick={this.handleClick}
+          autoPlay
+          controls
+        ></video>
         <p>
           {post.likes} <i>Likes</i>
         </p>
