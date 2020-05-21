@@ -13,7 +13,7 @@ const Posts = [
       },
       {
         user: "Dr.Dre",
-        Text: "Don't forget about Dre",
+        text: "Don't forget about Dre",
         Time: "April 30th, 2020",
       },
     ],
