@@ -23,7 +23,7 @@ const Navbar = () => {
         </ul>
       </div>
       <div>
-        <h1 className="logo">Brand</h1>
+        <h1 className="logo">Lotus</h1>
       </div>
       <div>
         <p>small logo</p>

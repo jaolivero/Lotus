@@ -4,12 +4,20 @@ import { Redirect } from "react-router-dom";
 class Story extends Component {
   state = {
     clicked: false,
+    display: "none",
   };
   handleClick = () => {
     const { post, onSelect } = this.props;
     onSelect(post.id);
     this.setState({
       clicked: true,
+      display: "none",
+    });
+  };
+
+  inputClick = () => {
+    this.setState({
+      display: "block",
     });
   };
   render() {
@@ -34,9 +42,13 @@ class Story extends Component {
         </p>
         <ul>
           <li>Like</li>
-          <li>Comment</li>
+          <li onClick={this.inputClick}>Comment</li>
           <li>Share</li>
         </ul>
+        <div style={{ display: this.state.display }}>
+          <input type="textfield"></input>
+          <button type="submit">Submit</button>
+        </div>
       </div>
     );
   }

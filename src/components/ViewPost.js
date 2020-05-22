@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { useParams, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import Button from "./common/Button";
 
 class ViewPost extends Component {
@@ -28,12 +28,12 @@ class ViewPost extends Component {
     //const props = this.props;
     const { course } = this.props;
     // const { courseId } = useParams();
-    const { courseId } = this.props.match.params;
+    // const { courseId } = this.props.match.params;
     return (
-      <div>
+      <div className="viewPost">
         <h1>{course.game}</h1>
         <h3>{course.summary}</h3>
-        <video src={course.video}></video>
+        <video src="">{course.video}</video>
         <Button onClick={this.handleClick}>
           {this.state.showComments ? "Hide Comments" : "Show Comments"}
         </Button>
