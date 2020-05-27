@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Button from "./common/Button";
+import { withRouter } from "react-router";
 
 class Submission extends Component {
   state = {
@@ -72,12 +73,19 @@ class Submission extends Component {
                 onChange={this.handleChange}
               />
             </label>
-            <Button type="Submit"> Submit</Button>
+            <Button style={styles} type="Submit">
+              Submit
+            </Button>
           </fieldset>
         </form>
       </div>
     );
   }
 }
+
+const styles = {
+  border: "3px solid red",
+  color: "white",
+};
 
 export default Submission;

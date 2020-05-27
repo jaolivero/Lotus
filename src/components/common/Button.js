@@ -12,6 +12,13 @@ export default Button;
 
 const styles = {
   button: {
-    alignself: "center",
+    alignSelf: "center",
+    border: "3px solid red",
+    backgroundColor: "red",
+    color: "white",
+    padding: "5px",
+    fontSize: "1.5rem",
+    cursor: "pointer",
+    borderRadius: "7px",
   },
 };
