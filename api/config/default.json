@@ -1,3 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://linkdb27:Proart123Y@lotus-hhkvm.mongodb.net/test?retryWrites=true&w=majority"
+  "mongoURI": "mongodb+srv://linkdb27:Proart123Y@lotus-hhkvm.mongodb.net/test?retryWrites=true&w=majority",
+  "jwtSecret": "mysecrettoken"
 }

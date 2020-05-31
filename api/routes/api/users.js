@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const gravtar = require("gravatar");
+const jwt = require("jsonwebtoken");
+const config = require("config");
 const { check, valiadationResult } = require("express-valiadator/check");
 const bcrypt = require("bcryptjs");
 const User = require("../../models/User");
@@ -28,35 +30,54 @@ router.post(
       let user = await User.findOne({ email });
 
       if (user) {
-        res.status(400).json({ errors: [{ msg: "User already exists" }] });
+        return res
+          .status(400)
+          .json({ errors: [{ msg: "User already exists" }] });
       }
-      res.send("User route");
+
+      const avatar = gravtar.url(email, {
+        s: "200",
+        r: "pg",
+        d: "mm",
+      });
+
+      user = new User({
+        name,
+        email,
+        avatar,
+        password,
+      });
+
+      const salt = await bcrypt.genSalt(10);
+      user.password = await bcrypt.hash(password, salt);
+
+      await user.save();
+
+      const payload = {
+        user: {
+          id: user.id,
+        },
+      };
+
+      jwt.sign(
+        payload,
+        config.get("jwtSecret"),
+        { expiresIn: 360000 },
+        (err, token) => {
+          if (err) throw err;
+          res.json({ token });
+        }
+      );
+      // See if user exists
+      // Get user gravatar
+      // encrypt password
+      //return jsonwebtoken
+      res.send("User registered");
     } catch {
       console.error(err.message);
       res.statur(500).send("Server error");
     }
 
-    const avatar = gravtar.url(email, {
-      s: "200",
-      r: "pg",
-      d: "mm",
-    });
-
-    user = new User({
-      name,
-      email,
-      avatar,
-      passwword,
-    });
-
-    const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(password, salt);
-
-    await user.save();
-    // See if user exists
-    // Get user gravatar
-    // encrypt password
-    //return jsonwebtoken
     res.send("User route");
   }
 );
