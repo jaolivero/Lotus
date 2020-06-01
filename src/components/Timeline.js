@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import Story from "./Story";
+import { connect } from "react-redux";
+import { increment } from "../actions/actions";
 import { Link } from "react-router-dom";
 
 class Timeline extends Component {
   //const props = this.props;
   state = {
     query: "",
-    searchedPost: [...this.props.Posts],
+    searchedPost: [...this.props.postsList.list],
     display: "none",
   };
   renderPosts = () => {
@@ -19,7 +21,7 @@ class Timeline extends Component {
 
   handleChange = (e) => {
     const query = e.target.value;
-    const newList = this.props.Posts.filter((post) => {
+    const newList = this.props.Posts.list.filter((post) => {
       if (post.game.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
         return true;
       }
@@ -36,6 +38,11 @@ class Timeline extends Component {
       display: "block",
     });
   };
+
+  handleClick = () => {
+    this.props.increment(this.props.count);
+  };
+
   render() {
     return (
       <div className="layout">
@@ -60,6 +67,10 @@ class Timeline extends Component {
             </h2>
           </div>
           <div className="postList">{this.renderPosts()}</div>
+          <div>
+            <button onClick={this.handleChange}>Add</button>
+            <p>{this.props.count}</p>
+          </div>
         </div>
       </div>
     );
@@ -75,4 +86,13 @@ const myStyles = {
   },
 };
 
-export default Timeline;
+const mapStoreToProps = (store) => {
+  return {
+    count: store.posts.count,
+    postsList: store.posts,
+  };
+};
+
+export default connect(mapStoreToProps, {
+  increment: increment,
+})(Timeline);
