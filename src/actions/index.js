@@ -1,1 +1,2 @@
-import * as "../mock/Posts";
+export * from "./actions";
+export * from "./newPostActions";

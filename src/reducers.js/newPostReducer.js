@@ -14,6 +14,16 @@ const INITIAL_STORE = {
 
 export default (store = INITIAL_STORE, action) => {
   switch (action.type) {
+    case "CHANGE_FORM":
+      return {
+        ...store,
+        form: {
+          ...store.form,
+          [action.payload.field]: action.payload.value,
+        },
+      };
+    case "SUBMIT_FORM":
+      return { ...INITIAL_STORE };
     default:
       return store;
   }

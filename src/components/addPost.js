@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Button from "./common/Button";
+import { connect } from "react-redux";
+import { changeForm, submitForm } from "../actions";
 
 class Submission extends Component {
   state = {
@@ -17,6 +19,7 @@ class Submission extends Component {
       ...this.state,
       [e.target.id]: [e.target.value],
     });
+    this.props.changeForm(e.target.id, e.target.value);
   };
 
   handleSubmit = (e) => {
@@ -31,9 +34,12 @@ class Submission extends Component {
       likes: 0,
       comments: [],
     });
+    this.props.submitForm(newResource);
   };
 
   render() {
+    const { form } = this.props.newPost;
+
     return (
       <div className="addPost">
         <form onSubmit={this.handleSubmit}>
@@ -43,7 +49,7 @@ class Submission extends Component {
                 id="title"
                 type="text"
                 placeholder="Title"
-                value={this.state.title}
+                value={form.posterName}
                 onChange={this.handleChange}
                 required
               />
@@ -53,7 +59,7 @@ class Submission extends Component {
                 id="summary"
                 type="text"
                 placeholder="summary"
-                value={this.state.summary}
+                value={form.summary}
                 onChange={this.handleChange}
                 required
               />
@@ -61,14 +67,14 @@ class Submission extends Component {
                 id="game"
                 type="text"
                 placeholder="Game"
-                value={this.state.game}
+                value={form.game}
                 onChange={this.handleChange}
                 required
               />
               <input
                 id="video"
                 type="file"
-                value={this.state.video}
+                value={form.video}
                 onChange={this.handleChange}
               />
             </label>
@@ -87,4 +93,13 @@ const styles = {
   color: "white",
 };
 
-export default Submission;
+const mapStoreToProps = (store) => {
+  return {
+    newPost: store.NewPost,
+  };
+};
+
+export default connect(mapStoreToProps, {
+  changeForm,
+  submitForm,
+})(Submission);
