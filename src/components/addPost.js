@@ -15,26 +15,12 @@ class Submission extends Component {
   };
 
   handleChange = (e) => {
-    this.setState({
-      ...this.state,
-      [e.target.id]: [e.target.value],
-    });
     this.props.changeForm(e.target.id, e.target.value);
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const newResource = { ...this.state };
-    this.props.addPost(newResource);
-    this.setState({
-      title: "",
-      summary: "",
-      game: "",
-      video: "",
-      likes: 0,
-      comments: [],
-    });
-    this.props.submitForm(newResource);
+    this.props.submitForm(this.props.newResource.form);
   };
 
   render() {

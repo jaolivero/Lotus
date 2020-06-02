@@ -11,5 +11,6 @@ export const changeForm = (field, value) => (dispatch) => {
 export const submitForm = (data) => (dispatch) => {
   dispatch({
     type: "SUBMIT_FORM",
+    payload: data,
   });
 };
