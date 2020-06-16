@@ -5,6 +5,7 @@ const auth = require('../../middleware/');
 const User = require('../../models/Users');
 const jwt = require('jsonwebtoken')
 const config = require('config');
+const isEmpty = require('../models')
 const { check, valiadationResult } = require('express-validator/check');
 
 
@@ -34,7 +35,7 @@ router.post(
         ).exists()
     ],
     async(req, res) => {
-        const erros = valiadationResult(req);
+        const errors = valiadationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
