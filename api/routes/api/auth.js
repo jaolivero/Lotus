@@ -6,8 +6,6 @@ const User = require('../../models/Users');
 const jwt = require('jsonwebtoken')
 const config = require('config');
 const { check, valiadationResult } = require('express-validator/check');
-
-
 const User = require('../../models/User')
 //@Route Get api/auth/user
 // desc Test route

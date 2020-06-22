@@ -73,7 +73,7 @@ router.post(
       // encrypt password
       //return jsonwebtoken
       res.send("User registered");
-    } catch {
+    } catch (err) {
       console.error(err.message);
       res.statur(500).send("Server error");
     }
