@@ -80,4 +80,5 @@ router.post(
     }
 );
 
+//authenticate user and get token using expres validator 
 module.exports = router;
