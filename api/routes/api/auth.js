@@ -10,16 +10,6 @@ const User = require('../../models/User')
 //@Route Get api/auth/user
 // desc Test route
 //@access Public
-router.get("/", auth, async (req, res) => {
-        try {
-    const user = await User.findById(req.user.id).select('-password');
-    res.json(user);
-} catch(err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
-    }
-});
-
 
 router.post(
     '/',
@@ -78,5 +68,30 @@ router.post(
     }
 );
 
+
+router.get("/", auth, async (req, res) => {
+    try {
+const user = await User.findById(req.user.id).select('-password');
+res.json(user);
+} catch(err) {
+console.error(err.message);
+res.status(500).send('Server Error');
+}
+});
+
+router.get('/', async (req, res) => {
+    try {
+        const profiles = await Profile.find({user: req.params.user_id}).populate('user', ['name', 'lastname']);
+        
+        if(!profile) return res.status(400).json({ msg: 'there is no profile for this user'})
+        res.json(profiles);
+    } catch(err) {
+        console.error(err.message);
+        if(err.kind == 'ObjectId'){
+            return res.status(400).json({ msg: 'Profile not found' });
+        }
+        res.status(500).send('Server Error');
+    }
+})
 //authenticate user and get token using expres validator 
 module.exports = router;

@@ -2,6 +2,9 @@ const jwt = require("jsonwebtoken");
 const config = require("config");
 
 module.exports = function (req, res, next) {
+  //must do one of the following
+  //respond to the front end and end early
+  // call next();
   const token = req.header("xauth-token");
 
   if (!token) {
