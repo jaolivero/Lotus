@@ -18,4 +18,14 @@ const PostSchema = new mongoose.Schema({
   },
 });
 
-module.exports = Post = mongoose.model('post', PostSchema);
+function validateCustomer(post) {
+  const schema = {
+    name: Joi.string().min(3).max(50).required(),
+    phone: Joi.string().min(5).max(50).required(),
+    isGold: Joi.boolean(),
+  };
+
+  return Joi.validate(post, schema);
+}
+
+module.exports.Post = Post;
