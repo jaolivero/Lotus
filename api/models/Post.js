@@ -18,7 +18,7 @@ const PostSchema = new mongoose.Schema({
   },
 });
 
-function validateCustomer(post) {
+function validatePost(post) {
   const schema = {
     name: Joi.string().min(3).max(50).required(),
     phone: Joi.string().min(5).max(50).required(),
