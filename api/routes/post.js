@@ -18,4 +18,13 @@ router.post('/', async (req, res) => {
   return res.status(400).json({ msg: 'No post have been created, yet!' });
 });
 
+router.get('/:id', async (req, res) => {
+  const genre = await Genre.findById(req.params.id);
+
+  if (!post)
+    return res.status(404).send('The genre with the given ID was not found');
+
+  res.send(genre);
+});
+
 module.exports = router;

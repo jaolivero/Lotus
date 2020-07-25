@@ -1,6 +1,6 @@
 const express = require('express');
 const users = require('../routes/users');
-const post = require('../routes/post');
+const post = require('../routes/posts');
 
 module.exports = function (app) {
   app.use(express.json());
