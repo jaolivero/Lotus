@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const Joi = require('joi');
 
-const PostSchema = new mongoose.Schema({
+const postSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
@@ -8,6 +9,13 @@ const PostSchema = new mongoose.Schema({
   date: {
     type: Date,
     default: Date.now,
+  },
+  title: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
   },
   comments: {
     type: String,
@@ -22,14 +30,17 @@ const PostSchema = new mongoose.Schema({
   },
 });
 
+const Post = mongoose.model('Post', postSchema);
+
 function validatePost(post) {
   const schema = {
-    name: Joi.string().min(3).max(50).required(),
-    phone: Joi.string().min(5).max(50).required(),
-    isGold: Joi.boolean(),
+    title: Joi.string().min(3).max(50).required(),
+    comments: Joi.string().min(5).max(50).required(),
   };
 
   return Joi.validate(post, schema);
 }
 
+module.exports.postSchema = postSchema;
 module.exports.Post = Post;
+module.exports.validate = validatePost;

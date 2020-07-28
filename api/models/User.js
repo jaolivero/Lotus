@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
 
-const UserSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
@@ -19,6 +19,18 @@ const UserSchema = new mongoose.Schema({
     maxlength: 1030,
     required: true,
   },
+  firstName: {
+    type: String,
+    required: true,
+    minlength: 5,
+    maxlength: 50,
+  },
+  lastName: {
+    type: String,
+    required: true,
+    minlength: 5,
+    maxlength: 50,
+  },
   avatar: {
     type: String,
   },
@@ -26,10 +38,26 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
+  location: {
+    city: {
+      type: String,
+    },
+    state: {
+      state: String,
+    },
+  },
   isAdmin: Boolean,
 });
 
 const User = mongoose.model('User', userSchema);
+
+userSchema.methods.generateAuthToken = function () {
+  const token = jwt.sign(
+    { _id: this._id, isAdmin: this.isAdmin },
+    config.jwtPrivateKey
+  );
+  return token;
+};
 
 function validateUser(user) {
   const schema = {
