@@ -7,17 +7,23 @@ const ProfileSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
   },
-  location: {
-    type: String,
-  },
   status: {
     type: String,
-    required: true,
   },
   bio: {
     type: String,
   },
-
+  avatar: {
+    type: String,
+  },
+  location: {
+    city: {
+      type: String,
+    },
+    state: {
+      state: String,
+    },
+  },
   streaming: {
     youtube: {
       type: String,
