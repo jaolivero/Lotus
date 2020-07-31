@@ -10,6 +10,12 @@ const ProfileSchema = new mongoose.Schema({
   status: {
     type: String,
   },
+  followers: [{ type: mongoose.Schema.ObjectId, ref: 'user' }],
+
+  following: [{ type: mongoose.Schema.ObjectId, ref: 'user' }],
+  notification: {
+    type: number,
+  },
   bio: {
     type: String,
   },

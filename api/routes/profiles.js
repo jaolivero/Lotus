@@ -13,3 +13,26 @@ router.post('/', async (req, res) => {
   let user = await User.findOne({ email: req.body.email });
   if (user) return res.status(400).send('User already registered.');
 });
+
+router.post('/', auth, async (req, res) => {
+  User.findOne({ username: req.body.username }, function(err, user) {
+
+    user.followers.push(req.user._id);
+    var followedUser = user._id;
+    user.save(function(err){
+      if(err){
+          //Handle error
+          //send error response
+      }
+      else
+      {
+          // Secondly, find the user account for the logged in user
+          User.findOne({ username: req.user.username }, function(err, user) {
+
+              user.following.push(followedUser);
+              user.save
+          });
+        }
+    });
+  });
+}

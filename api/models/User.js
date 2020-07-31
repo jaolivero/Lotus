@@ -2,6 +2,7 @@ const config = require('config');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const Joi = require('joi');
+const joiObjectid = require('joi-objectid');
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -52,9 +53,12 @@ const User = mongoose.model('User', userSchema);
 
 function validateUser(user) {
   const schema = Joi.object({
+    username: Joi.string().min(2).max(50).required(),
+    lastName: Joi.string().min(2).max(50).required(),
     firstName: Joi.string().min(2).max(50).required(),
     email: Joi.string().min(5).max(255).required().email(),
     password: Joi.string().min(5).max(255).required(),
+    isAdmin: Joi.boolean(),
   });
 
   return schema.validate(user);
