@@ -2,9 +2,6 @@ const auth = require('../middleware/auth');
 const { User, validate } = require('../models/User');
 const _ = require('lodash');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const config = require('config');
-const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 
@@ -18,27 +15,20 @@ router.post('/', async (req, res) => {
   if (error) return res.status(400).send(error.details[0].message);
 
   let user = await User.findOne({ email: req.body.email });
-  if (user) return res.status(400).send('User already registered.');
+  if (user) return res.status(400).json({ email: 'User already registered.' });
 
   user = new User(
-    _.pick(req.body, [
-      'username',
-      'email',
-      'password',
-      'firstName',
-      'lastName',
-      'isAdmin',
-    ])
+    _.pick(req.body, ['username', 'email', 'password', 'firstName', 'lastName'])
   );
 
   const salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(user.passsword, salt);
-  await user.save();
+  await User.save(user);
 
   const token = user.generateAuthToken();
   res
     .header('x-auth-token', token)
-    .send(_.pick(user, ['id', 'username', 'email']));
+    .send(_.pick(user, ['_id', 'username', 'email']));
 });
 
 module.exports = router;

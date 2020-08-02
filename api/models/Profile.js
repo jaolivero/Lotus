@@ -10,9 +10,9 @@ const ProfileSchema = new mongoose.Schema({
   status: {
     type: String,
   },
-  followers: [{ type: mongoose.Schema.ObjectId, ref: 'user' }],
+  followers: [{ type: Schema.ObjectId, ref: 'user' }],
 
-  following: [{ type: mongoose.Schema.ObjectId, ref: 'user' }],
+  following: [{ type: Schema.ObjectId, ref: 'user' }],
   notification: {
     type: number,
   },
