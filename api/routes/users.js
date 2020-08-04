@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/me', auth, async (req, res) => {
   const user = await User.findById(req.user._id).select('-password');
-  res.send(user);
+  res.json(user);
 });
 
 router.post('/', async (req, res) => {
@@ -18,9 +18,9 @@ router.post('/', async (req, res) => {
   if (user) return res.status(400).json({ email: 'User already registered.' });
 
   user = _.pick(req.body, ['username', 'email', 'password']);
-  console.log(user);
+  //console.log(user);
   const salt = await bcrypt.genSalt(10);
-  console.log(user.password, salt);
+  //console.log(user.password, salt);
   user.password = await bcrypt.hash(user.password, 10);
 
   user = await User.create(user);

@@ -4,7 +4,8 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  const post = await Post.find().sort('-date');
+  const posts = await Post.find().sort('-date');
+  res.json({ posts });
 });
 
 router.post('/', async (req, res) => {

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Joi = require('joi');
 const user = require('./User');
 
-const ProfileSchema = new mongoose.Schema({
+const Profile = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
@@ -16,11 +16,12 @@ const ProfileSchema = new mongoose.Schema({
   status: {
     type: String,
   },
-  followers: [{ type: Schema.ObjectId, ref: 'user' }],
+  followers: [{ type: mongoose.Schema.ObjectId, ref: 'user' }],
 
-  following: [{ type: Schema.ObjectId, ref: 'user' }],
+  following: [{ type: mongoose.Schema.ObjectId, ref: 'user' }],
+
   notification: {
-    type: number,
+    type: Number,
   },
   bio: {
     type: String,
@@ -53,4 +54,16 @@ const ProfileSchema = new mongoose.Schema({
   },
 });
 
-module.exports = Profile = mongoose.model('profile', ProfileSchema);
+function validateProfile(req) {
+  const schema = Joi.object({
+    firstName: Joi.string().min(2).max(50).required(),
+    lastName: Joi.string().min(2).max(50).required(),
+    status: Joi.string().min(3).max(50),
+    location: Joi.array().min(3).max(50),
+    streaming: Joi.string().min(3).max(200).required(),
+  });
+  return schema.validate(req);
+}
+
+module.exports.Profile = Profile;
+module.exports.validate = validateProfile;
