@@ -1,3 +1,4 @@
+const { profile, validate } = require('../models/Profile');
 const express = require('express');
 const router = express.Router();
 

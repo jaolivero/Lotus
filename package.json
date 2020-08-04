@@ -17,7 +17,7 @@
     "lodash": "^4.17.19",
     "moment": "^2.26.0",
     "mongodb": "^3.6.0",
-    "mongoose": "^5.9.14",
+    "mongoose": "^5.9.27",
     "objectid": "^3.2.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

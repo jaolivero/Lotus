@@ -6,7 +6,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/me', auth, async (req, res) => {
-  const user = await user.findById(req.user._id).select('-password');
+  const user = await User.findById(req.user._id).select('-password');
   res.send(user);
 });
 
@@ -17,13 +17,13 @@ router.post('/', async (req, res) => {
   let user = await User.findOne({ email: req.body.email });
   if (user) return res.status(400).json({ email: 'User already registered.' });
 
-  user = new User(
-    _.pick(req.body, ['username', 'email', 'password', 'firstName', 'lastName'])
-  );
-
+  user = _.pick(req.body, ['username', 'email', 'password']);
+  console.log(user);
   const salt = await bcrypt.genSalt(10);
-  user.password = await bcrypt.hash(user.passsword, salt);
-  await User.save(user);
+  console.log(user.password, salt);
+  user.password = await bcrypt.hash(user.password, 10);
+
+  user = await User.create(user);
 
   const token = user.generateAuthToken();
   res

@@ -11,6 +11,9 @@ const postSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  game: {
+    type: String,
+  },
   title: {
     type: String,
     required: true,
@@ -18,6 +21,7 @@ const postSchema = new mongoose.Schema({
   description: {
     type: String,
   },
+  //comments should be an array?? comments.length + 1..user.id... gravatar... comments.. updatedAT
   comments: {
     type: String,
   },

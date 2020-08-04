@@ -13,25 +13,14 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+    minlength: 5,
+    maxlength: 255,
     unique: true,
   },
   password: {
     type: String,
-    minlength: 3,
-    maxlength: 1030,
     required: true,
-  },
-  firstName: {
-    type: String,
-    required: true,
-    minlength: 2,
-    maxlength: 50,
-  },
-  lastName: {
-    type: String,
-    required: true,
-    minlength: 2,
-    maxlength: 50,
+    maxlength: 1024,
   },
   date: {
     type: Date,
@@ -50,17 +39,15 @@ userSchema.methods.generateAuthToken = function () {
 
 const User = mongoose.model('User', userSchema);
 
-function validateUser(user) {
+function validateUser(req) {
   const schema = Joi.object({
     username: Joi.string().min(2).max(50).required(),
-    lastName: Joi.string().min(2).max(50).required(),
-    firstName: Joi.string().min(2).max(50).required(),
-    email: Joi.string().min(5).max(255).required().email(),
-    password: Joi.string().min(5).max(255).required(),
+    email: Joi.string().min(3).max(255).required().email(),
+    password: Joi.string().min(3).max(255).required(),
     isAdmin: Joi.boolean(),
   });
 
-  return schema.validate(user);
+  return schema.validate(req);
 }
 
 exports.User = User;
