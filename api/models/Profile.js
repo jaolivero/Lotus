@@ -1,58 +1,53 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
-const user = require('./User');
 
-const Profile = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'user',
-  },
-  firstName: {
-    type: String,
-  },
-  lastName: {
-    type: String,
-  },
-  status: {
-    type: String,
-  },
-  followers: [{ type: mongoose.Schema.ObjectId, ref: 'user' }],
+const Profile = mongoose.model(
+  'Profile',
+  new mongoose.Schema({
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+      unique: true,
+    },
+    firstName: {
+      type: String,
+    },
+    lastName: {
+      type: String,
+    },
+    status: {
+      type: String,
+    },
+    followers: [{ type: mongoose.Schema.ObjectId, ref: 'user' }],
 
-  following: [{ type: mongoose.Schema.ObjectId, ref: 'user' }],
+    following: [{ type: mongoose.Schema.ObjectId, ref: 'user' }],
 
-  notification: {
-    type: Number,
-  },
-  bio: {
-    type: String,
-  },
-  avatar: {
-    type: String,
-  },
-  location: {
-    city: {
+    notification: {
+      type: Number,
+    },
+    bio: {
       type: String,
     },
-    state: {
-      state: String,
-    },
-  },
-  streaming: {
-    youtube: {
+    avatar: {
       type: String,
     },
-    facebook: {
+    location: {
+      city: {
+        type: String,
+      },
+      state: {
+        state: String,
+      },
+    },
+    streaming: {
       type: String,
     },
-    twitch: {
-      type: String,
+    date: {
+      type: Date,
+      default: Date.now,
     },
-  },
-  date: {
-    type: Date,
-    default: Date.now,
-  },
-});
+  })
+);
 
 function validateProfile(req) {
   const schema = Joi.object({

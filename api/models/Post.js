@@ -2,10 +2,22 @@ const mongoose = require('mongoose');
 const Joi = require('joi');
 const { userSchema } = require('../models/User');
 
-const postSchema = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'user',
+const commentSchema = new Schema(
+  {
+    profile: {
+      type: Schema.Types.ObjectId,
+      ref: 'profiles',
+    },
+    text: String,
+    likes: { type: [Schema.Types.ObjectId], default: [] },
+  },
+  { timestamps: {} }
+);
+
+const postSchema = new Schema({
+  poster: {
+    type: Schema.Types.ObjectId,
+    ref: 'Profile',
   },
   createdAt: {
     type: Date,
@@ -21,10 +33,8 @@ const postSchema = new mongoose.Schema({
   description: {
     type: String,
   },
-  //comments should be an array?? comments.length + 1..user.id... gravatar... comments.. updatedAT
-  comments: {
-    type: String,
-  },
+  //comments.length + 1..user.id... gravatar... comments.. updatedAT
+  comments: { type: [commentSchema], default: [] },
   likes: {
     type: Number,
     default: 0,
@@ -37,13 +47,15 @@ const postSchema = new mongoose.Schema({
 
 const Post = mongoose.model('Post', postSchema);
 
-function validatePost(post) {
-  const schema = {
+function validatePost(req) {
+  const schema = Joi.object({
     title: Joi.string().min(3).max(50).required(),
-    comments: Joi.string().min(5).max(50).required(),
-  };
+    comments: Joi.string().min(5).max(50),
+    game: Joi.string().min(3).max(50).required(),
+    description: Joi.string().min(3).max(50),
+  });
 
-  return Joi.validate(post, schema);
+  return schema.validate(req);
 }
 
 module.exports.postSchema = postSchema;

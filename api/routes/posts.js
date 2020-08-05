@@ -1,4 +1,5 @@
 const { Post, validate } = require('../models/Post');
+const { Profile } = require('../models/Profile');
 const { User } = require('../models/User');
 const express = require('express');
 const router = express.Router();
@@ -8,15 +9,36 @@ router.get('/', async (req, res) => {
   res.json({ posts });
 });
 
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status.send(error.details[0].message);
 
+  const profile = await User.findById(req.body.profileId);
+  if (!profile) return res.status(400).json({ msg: 'Invalid profile' });
+
   const user = await User.findById(req.body.userId);
-  if (!customer) return res.status(400).json({ msg: 'Invalid user' });
+  if (!user) return res.status(400).json({ msg: 'Invalid user' });
+
+  const profile = await User.findById(req.body.userId);
+  if (!profile) return res.status(400).json({ msg: 'Invalid user' });
 
   if (Post.length === 0);
   return res.status(400).json({ msg: 'No post have been created, yet!' });
+
+  let post = new Post({
+    post: {
+      profile: {
+        _id: profile.id,
+        avatar: profile.id,
+        user: username.id,
+      },
+      _id: post._id,
+      title: post.title,
+      comments: post.comments,
+      game: post.game,
+      description: post.description,
+    },
+  });
 });
 
 router.get('/:id', async (req, res) => {

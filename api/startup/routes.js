@@ -9,5 +9,6 @@ module.exports = function (app) {
   app.use('/api/users', users);
   app.use('/api/posts', posts);
   app.use('/api/auth', auth);
-  app.use('/api/profile', profiles);
+  app.use('/api/profiles', profiles);
+  app.use('/api/posts', posts);
 };
