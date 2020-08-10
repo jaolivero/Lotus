@@ -5,8 +5,11 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/me', auth, async (req, res) => {
-  const profile = await User.findById(req.profile._id).select('-password');
-  res.send(user);
+  const profile = await Profile.findById(req.params.id);
+  if (!profile) {
+    return res.status(404).json({ msg: 'Profile Not Found' });
+  }
+  res.json({ profile });
 });
 
 router.post('/', auth, async (req, res) => {
@@ -70,10 +73,9 @@ router.put('/:id', auth, async (req, res) => {
 });
 
 router.delete('/:id', auth, async (req, res) => {
-  const post = await Post.findByIdAndRemove(req.params.id);
-
-  if (!post)
-    return res.status(404).send('The genre with the given ID was not found');
+  await Profile.findOneAndRemove({ user: req.user.id });
+  if (!profile) return res.status(400).json({ msg: 'Profile does not exist' });
+  res.json({ msg: 'Profile has been deleted !' });
 
   res.send(genre);
 });
