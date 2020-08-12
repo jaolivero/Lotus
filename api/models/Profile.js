@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
+const Schema = mongoose.Schema;
 
 const Profile = mongoose.model(
   'Profile',
-  new mongoose.Schema({
+  new Schema({
     user: {
       type: Schema.Types.ObjectId,
       ref: 'user',

@@ -6,9 +6,7 @@ const router = express.Router();
 
 router.get('/me', auth, async (req, res) => {
   const profile = await Profile.findById(req.params.id);
-  if (!profile) {
-    return res.status(404).json({ msg: 'Profile Not Found' });
-  }
+  if (!profile) return res.status(404).json({ msg: 'Profile Not Found' });
   res.json({ profile });
 });
 
@@ -33,7 +31,7 @@ router.post('/', auth, async (req, res) => {
   res.json(profile);
 });
 
-router.post('/', auth, async (req, res) => {
+router.post('/followers', auth, async (req, res) => {
   User.findOne({ username: req.body.username }, function (err, user) {
     user.followers.push(req.user._id);
     var followedUser = user._id;
@@ -72,12 +70,12 @@ router.put('/:id', auth, async (req, res) => {
   res.json(profile);
 });
 
-router.delete('/:id', auth, async (req, res) => {
+router.delete('/', auth, async (req, res) => {
   await Profile.findOneAndRemove({ user: req.user.id });
   if (!profile) return res.status(400).json({ msg: 'Profile does not exist' });
   res.json({ msg: 'Profile has been deleted !' });
 
-  res.send(genre);
+  res.json(genre);
 });
 
 module.exports = router;

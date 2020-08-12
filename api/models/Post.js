@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
 const { userSchema } = require('../models/User');
+const Schema = mongoose.Schema;
 
 const commentSchema = new Schema(
   {
@@ -33,12 +34,9 @@ const postSchema = new Schema({
   description: {
     type: String,
   },
-  //comments.length + 1..user.id... gravatar... comments.. updatedAT
+  //comments.length..user.id... gravatar... comments.. updatedAT
   comments: { type: [commentSchema], default: [] },
-  likes: {
-    type: Number,
-    default: 0,
-  },
+  likes: { type: [mongoose.Schema.Types.ObjectId], default: [] },
   views: {
     type: Number,
     default: 0,
@@ -49,10 +47,10 @@ const Post = mongoose.model('Post', postSchema);
 
 function validatePost(req) {
   const schema = Joi.object({
-    title: Joi.string().min(3).max(50).required(),
-    comments: Joi.string().min(5).max(50),
-    game: Joi.string().min(3).max(50).required(),
-    description: Joi.string().min(3).max(50),
+    title: Joi.string(2).min(3).max(50).required(),
+    comments: Joi.string(1).min(5).max(50),
+    game: Joi.string2().min(3).max(50).required(),
+    description: Joi.string(1).min(3).max(50),
   });
 
   return schema.validate(req);

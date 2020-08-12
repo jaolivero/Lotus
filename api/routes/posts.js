@@ -1,3 +1,4 @@
+const auth = require('../middleware/auth');
 const { Post, validate } = require('../models/Post');
 const { Profile } = require('../models/Profile');
 const { User } = require('../models/User');
@@ -18,9 +19,6 @@ router.post('/', auth, async (req, res) => {
 
   const user = await User.findById(req.body.userId);
   if (!user) return res.status(400).json({ msg: 'Invalid user' });
-
-  const profile = await User.findById(req.body.userId);
-  if (!profile) return res.status(400).json({ msg: 'Invalid user' });
 
   if (Post.length === 0);
   return res.status(400).json({ msg: 'No post have been created, yet!' });
