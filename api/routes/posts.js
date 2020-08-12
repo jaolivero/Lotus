@@ -40,14 +40,24 @@ router.get('/:id', async (req, res) => {
   res.json(genre);
 });
 
-router.delete('/:id'),
+router.delete('/:id', auth, async (req, res) => {
   async (req, res) => {
-    const Post = await User.findByIdAndRemove(req.params.id);
+    const profile = await User.findOne({ user: req.user.id });
 
-    if (!customer)
-      return res.status(404).send('this user with the given id was not found');
+    const result = await Post.findOneAndDelete({
+      _id: req.params.id,
+      poster: profile._id,
+    });
 
-    res.send(customer);
+    if (!result) {
+      const post = await Post.findById(req.params.id);
+      if (!post) {
+        return res.status(404).json({ msg: 'Post not found' });
+      }
+      return res.status(401).json({ msg: 'Unauthorized!' });
+    }
+    return res.status(204), json({ msg: 'Success! ' });
   };
+});
 
 module.exports = router;
