@@ -14,29 +14,21 @@ router.post('/', auth, async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status.send(error.details[0].message);
 
-  const profile = await User.findById(req.body.profileId);
+  const profile = await Profile.findOne({ user: req.user.id });
+  // console.log(req);
   if (!profile) return res.status(400).json({ msg: 'Invalid profile' });
 
-  const user = await User.findById(req.body.userId);
-  if (!user) return res.status(400).json({ msg: 'Invalid user' });
+  if (Post.length === 0) {
+    return res.status(400).json({ msg: 'No post have been created, yet!' });
+  }
+  profileId = profile._id;
+  console.log(profileId);
 
-  if (Post.length === 0);
-  return res.status(400).json({ msg: 'No post have been created, yet!' });
+  const postData = { ...req.body };
+  postData.poster = profileId;
 
-  let post = new Post({
-    post: {
-      profile: {
-        _id: profile.id,
-        avatar: profile.id,
-        user: username.id,
-      },
-      _id: post._id,
-      title: post.title,
-      comments: post.comments,
-      game: post.game,
-      description: post.description,
-    },
-  });
+  const post = await Post.create(postData);
+  res.json(post);
 });
 
 router.get('/:id', async (req, res) => {

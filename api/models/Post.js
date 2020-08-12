@@ -47,10 +47,9 @@ const Post = mongoose.model('Post', postSchema);
 
 function validatePost(req) {
   const schema = Joi.object({
-    title: Joi.string(2).min(3).max(50).required(),
-    comments: Joi.string(1).min(5).max(50),
-    game: Joi.string2().min(3).max(50).required(),
-    description: Joi.string(1).min(3).max(50),
+    title: Joi.string().min(3).max(50).required(),
+    game: Joi.string().min(3).max(50).required(),
+    description: Joi.string().min(3).max(50),
   });
 
   return schema.validate(req);
