@@ -69,7 +69,6 @@ router.delete('/:id', auth, async (req, res) => {
     _id: req.params.id,
     poster: profile._id,
   });
-  console.log(result);
 
   if (!result) {
     const post = await Post.findById(req.params.id);
@@ -79,6 +78,30 @@ router.delete('/:id', auth, async (req, res) => {
     return res.status(401).json({ msg: 'Unauthorized!' });
   }
   return res.status(204).json({ msg: 'Success! ' });
+});
+
+router.put('/:postID/like', auth, async (req, res) => {
+  let post;
+  if (req.body.like) {
+    // add the user id to likes
+    post = await Post.findByIdAndUpdate(
+      req.params.postID,
+      {
+        $addToSet: { likes: req.user.id },
+      },
+      { new: true }
+    );
+  } else {
+    // remove the specific userid from likes
+    post = await Post.findByIdAndUpdate(
+      req.params.postID,
+      {
+        $pull: { likes: req.user.id },
+      },
+      { new: true }
+    );
+  }
+  return res.json(post.likes.length);
 });
 
 module.exports = router;
