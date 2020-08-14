@@ -40,24 +40,45 @@ router.get('/:id', async (req, res) => {
   res.json(genre);
 });
 
+router.put('/:id', auth, async (req, res) => {
+  const profile = await Profile.findOne({ user: req.user.id });
+  if (!profile) {
+    res.status(403).json({ msg: 'no profile' });
+  }
+  const postData = { ...req.body };
+
+  const post = await Post.findOneAndUpdate(
+    { _id: req.params.id, poster: profile._id },
+    postData,
+    { new: true }
+  );
+
+  if (!post) {
+    res.status(403).json({ msg: 'Unable to update' });
+    // optional check if post exists. if it does respond with 401 unauthorized. if it doesn't respond with 404 not found.
+  }
+
+  res.json(post);
+});
+
 router.delete('/:id', auth, async (req, res) => {
-  async (req, res) => {
-    const profile = await User.findOne({ user: req.user.id });
+  const profile = await Profile.findOne({ user: req.user.id });
+  console.log(profile);
 
-    const result = await Post.findOneAndDelete({
-      _id: req.params.id,
-      poster: profile._id,
-    });
+  const result = await Post.findOneAndDelete({
+    _id: req.params.id,
+    poster: profile._id,
+  });
+  console.log(result);
 
-    if (!result) {
-      const post = await Post.findById(req.params.id);
-      if (!post) {
-        return res.status(404).json({ msg: 'Post not found' });
-      }
-      return res.status(401).json({ msg: 'Unauthorized!' });
+  if (!result) {
+    const post = await Post.findById(req.params.id);
+    if (!post) {
+      return res.status(404).json({ msg: 'Post not found' });
     }
-    return res.status(204), json({ msg: 'Success! ' });
-  };
+    return res.status(401).json({ msg: 'Unauthorized!' });
+  }
+  return res.status(204).json({ msg: 'Success! ' });
 });
 
 module.exports = router;

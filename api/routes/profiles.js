@@ -31,51 +31,34 @@ router.post('/', auth, async (req, res) => {
   res.json(profile);
 });
 
-router.post('/followers', auth, async (req, res) => {
-  User.findOne({ username: req.body.username }, function (err, user) {
-    user.followers.push(req.user._id);
-    var followedUser = user._id;
-    user.save(function (err) {
-      if (err) {
-        //Handle error
-        //send error response
-      } else {
-        // Secondly, find the user account for the logged in user
-        User.findOne({ username: req.user.username }, function (err, user) {
-          user.following.push(followedUser);
-          user.save;
-        });
-      }
-    });
-  });
-});
-
 router.put('/:id', auth, async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  const profile = await Profile.findByIdAndUpdate(
-    req.params.id,
-    {
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      status: req.body.status,
-      bio: req.body.bio,
-      avatar: req.body.avatar,
-      streaming: req.body.streaming,
-    },
+  const profile = await Profile.findOne({ user: req.user.id });
+  if (!profile) {
+    res.status(403).json({ msg: 'no profile' });
+  }
+  const postData = { ...req.body };
+
+  const post = await Post.findOneAndUpdate(
+    { _id: req.params.id, poster: profile._id },
+    postData,
     { new: true }
   );
-  if (!profile) return res.status(400).json({ msg: 'Profile does not exist' });
-  res.json(profile);
+
+  if (!post) {
+    res.status(403).json({ msg: 'Unable to update' });
+    // optional check if post exists. if it does respond with 401 unauthorized. if it doesn't respond with 404 not found.
+  }
+
+  res.json(post);
 });
 
 router.delete('/', auth, async (req, res) => {
   await Profile.findOneAndRemove({ user: req.user.id });
   if (!profile) return res.status(400).json({ msg: 'Profile does not exist' });
   res.json({ msg: 'Profile has been deleted !' });
-
-  res.json(genre);
 });
 
 module.exports = router;
