@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server",
-    "server": "nodemon server",
+    "server": "nodemon server --ignore",
     "src": "npm start -- prefix src",
     "dev": "concurrently \"npm run server\" \"npm run src\""
   },
