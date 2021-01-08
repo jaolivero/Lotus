@@ -1,8 +1,8 @@
 const express = require('express');
-const users = require('../routes/users');
-const posts = require('../routes/posts');
-const auth = require('../routes/auth');
-const profiles = require('../routes/profiles');
+const users = require('../routes/api/users');
+const posts = require('../routes/api/posts');
+const auth = require('../routes/api/auth');
+const profiles = require('../routes/api/profiles');
 
 module.exports = function (app) {
   app.use(express.json());

@@ -1,5 +1,5 @@
-const auth = require('../middleware/auth');
-const { Profile, validate } = require('../models/Profile');
+const auth = require('../../middleware/auth');
+const { Profile, validate } = require('../../models/Profile');
 const _ = require('lodash');
 const express = require('express');
 const router = express.Router();
