@@ -1,41 +1,53 @@
 import React, { Component } from "react";
-import axios from 'axios';
+import { connect } from 'react-redux;'
+import { Link, Redirect } from "react-router-dom";
+import { setAlert } from '../../actions/alert';
+import { register } from '../../actions/auth';
+import PropTypes from 'prop-types'
+import { Fragment } from "react";
 
-class Register extends Component {
-  render() {
+const Register = ({ setAlert, register, isAuthenticated }) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    password2: '',
+  })
 
     const {name, email, password, password2} = formData;
 
-    const onChange= e =>
+    const onChange = (e) =>
       setFormData({...formData, [e.target.name]: e.target.value});
 
-      const onSubmit = async e => {
+      const onSubmit = async (e) => {
         e.preventDefault();
         if (password !== password2) {
-          console.log('Passwords do not match');
-        } else {
-          const newUser = {
-            name,
-            email,
-            password
+          //css has alert, alert-primary, alert-danger 
+         setAlert('Passwords do not match', 'danger');
+        } else { 
+          register({ name, email, password });
           }
-
-          try {
-            const config = {
-              headers: {
-                'Content-Type': application/json'
-              }
-            }
-            const body = JSON.stringify(newUser);
-
-            const res = await axios.post('api/users', body, config);
-            console.log(res.data);
-          } catch(err) {
-            console.error(err.response.data);
-          }
+        };
+    
+        if(isAuthenticated) {
+          return <Redirect to="/dashboard" />;
         }
+        //   try {
+        //     const config = {
+        //       headers: {
+        //         'Content-Type': 'application/json'
+        //       }
+        //     }
+        //     const body = JSON.stringify(newUser);
+
+        //     const res = await axios.post('api/users', body, config);
+        //     console.log(res.data);
+        //   } catch(err) {
+        //     console.error(err.response.data);
+        //   }
+        // }
     return (
-      <div className="registration">
+      <Fragment>
         <form className="form" onSubmit={onSubmit}>
         <div className="form-group">
           <input
@@ -81,8 +93,18 @@ class Register extends Component {
       <p >
         Already have an account? <Link to="/login">Sign In</Link>
       </p>
-      </div>
+      </Fragment>
     );
+  };
+
+  Register.propTypes = {
+    setAlert: PropTypes.func.isRequired,
+    register: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool
   }
-}
-export default Register;
+
+  const mapStatetoProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated
+  });
+
+export default connect(mapStatetoProps, { setAlert, register })(Register);

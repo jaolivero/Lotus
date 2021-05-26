@@ -1,4 +1,5 @@
-import Posts from "../mock/post";
+import Posts from "../mock/Posts";
+import { INCREMENT, SUBMIT_FORM } from "../actions/types";
 
 const INITIAL_STORE = {
   list: [...Posts],

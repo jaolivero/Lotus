@@ -43,4 +43,4 @@ class ViewPost extends Component {
   }
 }
 
-export default withRouter(ViewPost);
+export default ViewPost;

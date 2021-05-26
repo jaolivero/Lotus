@@ -7,51 +7,51 @@ import Posts from "./mock/Posts";
 import Timeline from "./components/Timeline";
 import Submission from "./components/addPost";
 import ViewPost from "./components/ViewPost";
+import Alert from './components/common/Alert';
 import "./App.css";
 
-class App extends Component {
-  state = {
-    Posts: [...Posts],
-    selected: 1,
-  };
+const App = (props) => {
+// class App extends Component {
+  // state = {
+  //   Posts: [...Posts],
+  //   selected: 1,
+  // };
 
-  addPost = (newPost) => {
-    newPost.id = this.state.Posts.length + 1;
-    this.setState({
-      ...this.state,
-      Posts: [...this.state.Posts, newPost],
-    });
-  };
+  // addPost = (newPost) => {
+  //   newPost.id = this.state.Posts.length + 1;
+  //   this.setState({
+  //     ...this.state,
+  //     Posts: [...this.state.Posts, newPost],
+  //   });
+  // };
 
-  handleSelect = (id) => {
-    this.setState({
-      ...this.state,
-      selected: id,
-    });
-  };
-
-  render() {
+  // handleSelect = (id) => {
+  //   this.setState({
+  //     ...this.state,
+  //     selected: id,
+  //   });
+  // };
     return (
       <BrowserRouter>
         <div className="App">
           <Navbar />
+          <Alert />
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" />
             <Route path="/login" component={Login} />
             <Route exact path="/timeline">
-              <Timeline onSelect={this.handleSelect} />
+              <Timeline />
             </Route>
             <Route path="/submit">
-              <Submission addPost={this.addPost} />
+              <Submission />
             </Route>
             <Route path="/viewPost/:id">
-              <ViewPost course={this.state.Posts[this.state.selected - 1]} />
+              <ViewPost />
             </Route>
           </Switch>
         </div>
       </BrowserRouter>
     );
-  }
 }
 
 export default App;

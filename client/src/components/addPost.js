@@ -3,28 +3,38 @@ import Button from "./common/Button";
 import { connect } from "react-redux";
 import { changeForm, submitForm } from "../actions";
 
-class Submission extends Component {
-  state = {
-    id: 0,
-    title: "",
-    summary: "",
-    game: "",
-    video: "",
-    likes: 0,
-    comments: [],
+const addPost = (props) => {
+// class Submission extends Component {
+//   state = {
+//     id: 0,
+//     title: "",
+//     summary: "",
+//     game: "",
+//     video: "",
+//     likes: 0,
+//     comments: [],
+//   };
+
+//   handleChange = (e) => {
+//     this.props.changeForm(e.target.id, e.target.value);
+//   };
+
+//   handleSubmit = (e) => {
+//     e.preventDefault();
+//     this.props.submitForm(this.props.newResource.form);
+//   };
+
+  const { form } = props.newPost;
+  const handleChange = (e) => {
+    props.changeForm(e.target.id, e.target.value);
   };
 
-  handleChange = (e) => {
-    this.props.changeForm(e.target.id, e.target.value);
-  };
-
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    this.props.submitForm(this.props.newResource.form);
-  };
+    // any data manipulation and validation
 
-  render() {
-    const { form } = this.props.newPost;
+    props.submitForm(props.newPost.form);
+  };
 
     return (
       <div className="addPost">
@@ -71,7 +81,6 @@ class Submission extends Component {
         </form>
       </div>
     );
-  }
 }
 
 const styles = {
@@ -85,7 +94,11 @@ const mapStoreToProps = (store) => {
   };
 };
 
-export default connect(mapStoreToProps, {
-  changeForm,
-  submitForm,
-})(Submission);
+const mapActionsToProps = () => {
+  return {
+    changeForm,
+    submitForm,
+  };
+};
+
+export default connect(mapStoreToProps, mapActionsToProps())(addPost);
